@@ -62,7 +62,7 @@
         },
         "PackageUri": {
             "type": "string",
-            "defaultValue": "https://github.com/djpericsson/AzureWebAppDeploy/raw/master/alis.zip",
+            "defaultValue": "https://prodexflowcommon.blob.core.windows.net/packagemanager/packages/rlatest/package.zip?sv=2016-05-31&sr=b&sig=82JoSlWSw7JZkpB2WSCgv5ThfvJwZqRompn2MC9kFeY%3D&st=2019-03-14T14%3A40%3A51Z&se=2019-03-14T15%3A40%3A51Z&sp=r",
             "minLength": 1,
             "metadata": {
                 "description": "The application package URI to be deployed to the WebApp."

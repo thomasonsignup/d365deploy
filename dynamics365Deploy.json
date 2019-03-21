@@ -164,16 +164,16 @@
             }
         },
         {
-            "name": "[concat(variables('uniqueString'), '/default')]",
+            "name": "[concat(variables('storageAccount'), '/default')]",
             "type": "Microsoft.Storage/storageAccounts/blobServices",
             "condition": "[not(empty(variables('dynamicsAxUri')))]",
             "apiVersion": "2018-07-01",
-            "dependsOn": ["[variables('uniqueString')]"],
+            "dependsOn": ["[variables('storageAccount')]"],
             "properties": {
                 "cors": {
                     "corsRules": [
                         {
-                            "allowedOrigins": ["[variables('dynamicsAxUri')]"],
+                            "allowedOrigins": ["[concat('https://',variables('uniqueString'),'.azurewebsites.net')]"],
                             "allowedMethods": ["GET"],
                             "maxAgeInSeconds": 200,
                             "exposedHeaders": ["x-ms-meta-*"],

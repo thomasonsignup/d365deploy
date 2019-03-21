@@ -254,12 +254,12 @@
                     ],
                     "properties": {
                         "StorageConnection": {
-                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('uniqueString'),';AccountKey=',concat(listKeys(concat('/Microsoft.Storage/storageAccounts/', variables('uniqueString')),'2015-05-01-preview').key1))]",
+                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('uniqueString'),';AccountKey=',concat(listKeys(concat('/Microsoft.Storage/storageAccounts/', variables('storageAccount')),'2015-05-01-preview').key1))]",
                             "Name": "StorageConnection",
                             "type": "Custom"
                         },
                         "KeyValueStorageConnection": {
-                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('uniqueString'),';AccountKey=',concat(listKeys(concat('/Microsoft.Storage/storageAccounts/', variables('uniqueString')),'2015-05-01-preview').key1))]",
+                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('uniqueString'),';AccountKey=',concat(listKeys(concat('/Microsoft.Storage/storageAccounts/', variables('storageAccount')),'2015-05-01-preview').key1))]",
                             "Name": "StorageConnection",
                             "type": "Custom"
                         }

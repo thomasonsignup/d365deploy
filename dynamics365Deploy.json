@@ -167,7 +167,7 @@
                     "name": "[concat('default/', variables('containerName'))]",
                     "type": "blobServices/containers",
                     "apiVersion": "2018-07-01",
-                    "dependsOn": ["[variables('uniqueString')]"]
+                    "dependsOn": ["[variables('storageAccount')]"]
                 }
             ]
         },

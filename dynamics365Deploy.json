@@ -161,15 +161,7 @@
             },
             "properties": {
                 "accessTier": "Hot"
-            },
-            "resources": [
-                {
-                    "name": "[concat('default/', variables('containerName'))]",
-                    "type": "blobServices/containers",
-                    "apiVersion": "2018-07-01",
-                    "dependsOn": ["[variables('storageAccount')]"]
-                }
-            ]
+            }
         },
         {
             "name": "[concat(variables('uniqueString'), '/default')]",

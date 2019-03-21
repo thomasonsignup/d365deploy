@@ -85,7 +85,7 @@
     },
     "variables": {
         "storageAccount": "[substring(parameters('CustomerName'), 0, 24)]",
-        "uniqueString": "[concat('ax', parameters('CustomerName'))]",
+        "uniqueString": "[parameters('CustomerName')]",
         "uniqueStringRsg": "[concat('ax', uniqueString(subscription().subscriptionId, resourceGroup().id))]",
         "sku": "Free",
         "tags": {

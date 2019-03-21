@@ -21,7 +21,7 @@
             "type": "string",
             "defaultValue": "",
             "metadata": {
-                "description": "Adinistrators of the Web Site, separated by ','."
+                "description": "Administrators of the Web Site, separated by ','."
             }
         },
         "AppServicePlanName": {
@@ -47,7 +47,7 @@
                 "P3 Premium",
                 "P4 Premium"
             ],
-            "defaultValue": "B1 Basic",
+            "defaultValue": "D1 Shared",
             "metadata": {
                 "description": "The App Service Plan SKU."
             }
@@ -62,16 +62,30 @@
         },
         "PackageUri": {
             "type": "string",
-            "defaultValue": "https://prodexflowcommon.blob.core.windows.net/packagemanager/packages/rlatest/package.zip?sv=2016-05-31&sr=b&sig=glyKqbrpyKtDtJjgVK522TqTh5J8g5Ci64ZZq1T0SRU%3D&st=2019-03-14T08%3A45%3A14Z&se=2019-03-14T09%3A45%3A14Z&sp=r",
+            "defaultValue": "https://prodexflowcommon.blob.core.windows.net/packagemanager/packages/rlatest/package.zip?sv=2016-05-31&sr=b&sig=82JoSlWSw7JZkpB2WSCgv5ThfvJwZqRompn2MC9kFeY%3D&st=2019-03-14T14%3A40%3A51Z&se=2019-03-14T15%3A40%3A51Z&sp=r",
             "minLength": 1,
             "metadata": {
                 "description": "The application package URI to be deployed to the WebApp."
             }
+        },
+        "aad_ClientId": {
+            "type": "string",
+            "minLength": 1,
+            "metadata": {
+                "description": "the Application ID of the Azure AD Application Created for deployment"
+            }
+        },
+        "aad_ClientSecret": {
+            "type": "string",
+            "minLength": 1,
+            "metadata": {
+                "description": "the Application Secret(Password) of the Azure AD Application Created for deployment"
+            }
         }
     },
     "variables": {
-        "uniqueString": "[concat('ax',parameters('CustomerName'))]",
-        "uniqueStringRsg": "[concat('ax',resourceGroup().id)]",
+        "uniqueString": "[concat('ax', parameters('CustomerName'))]",
+        "uniqueStringRsg": "[concat('ax', uniqueString(subscription().subscriptionId, resourceGroup().id))]",
         "sku": "Free",
         "tags": {
             "Customer": "[parameters('CustomerName')]",
@@ -229,8 +243,8 @@
                         "[concat('Microsoft.Web/Sites/', variables('uniqueString'), '/Extensions/MSDeploy')]"
                     ],
                     "properties": {
-                        "aad_ClientId": "[reference(variables('identityResourceId'), '2015-08-31-PREVIEW').principalId]",
-                        "aad_ClientSecret": "aad_ClientSecret",
+                        "aad_ClientId": "[parameters('aad_ClientId')]",
+                        "aad_ClientSecret": "[parameters('aad_ClientSecret')]",
                         "aad_TenantId": "[subscription().tenantId]",
                         "aad_PostLogoutRedirectUri": "[concat('https://',variables('uniqueString'),'.azurewebsites.net/close.aspx?signedout=yes')]",
                         "aad_ExternalApiId": "[parameters('Dynamics365Uri')]",
@@ -259,18 +273,6 @@
                     }
                 }
             ]
-        },
-        {
-            "name": "[guid(variables('uniqueString'))]",
-            "apiVersion": "2017-09-01",
-            "location": "[resourceGroup().location]",
-            "type": "Microsoft.Authorization/roleAssignments",
-            "dependsOn": ["[resourceId('Microsoft.Web/sites', variables('uniqueString'))]"],
-            "properties": {
-                "roleDefinitionId": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', 'b24988ac-6180-42a0-ab88-20f7382dd24c')]",
-                "principalId": "[reference(variables('identityResourceId'), '2015-08-31-PREVIEW').principalId]",
-                "scope": "[resourceGroup().id]"
-            }
         }
     ]
 }

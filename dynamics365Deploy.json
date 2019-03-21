@@ -62,7 +62,7 @@
         },
         "PackageUri": {
             "type": "string",
-            "defaultValue": "https://prodexflowcommon.blob.core.windows.net/packagemanager/packages/rlatest/package.zip?sv=2016-05-31&sr=b&sig=82JoSlWSw7JZkpB2WSCgv5ThfvJwZqRompn2MC9kFeY%3D&st=2019-03-14T14%3A40%3A51Z&se=2019-03-14T15%3A40%3A51Z&sp=r",
+            "defaultValue": "https://prodexflowcommon.blob.core.windows.net/packagemanager/packages/latest/package.zip?sv=2016-05-31&sr=b&sig=21SCpN9bT%2FoV5ioeDsvMsVe3ahDa%2Fsha%2Bxs1jRA2Cqk%3D&st=2019-03-21T13%3A44%3A21Z&se=2019-03-21T14%3A44%3A21Z&sp=r",
             "minLength": 1,
             "metadata": {
                 "description": "The application package URI to be deployed to the WebApp."

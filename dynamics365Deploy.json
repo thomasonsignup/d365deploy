@@ -84,6 +84,7 @@
         }
     },
     "variables": {
+        "storageAccount": "[substring(parameters('CustomerName'), 0, 24)]",
         "uniqueString": "[concat('ax', parameters('CustomerName'))]",
         "uniqueStringRsg": "[concat('ax', uniqueString(subscription().subscriptionId, resourceGroup().id))]",
         "sku": "Free",
@@ -148,7 +149,7 @@
     },
     "resources": [
         {
-            "name": "[variables('uniqueString')]",
+            "name": "[variables('storageAccount')]",
             "type": "Microsoft.Storage/storageAccounts",
             "apiVersion": "2018-07-01",
             "location": "[resourcegroup().location]",

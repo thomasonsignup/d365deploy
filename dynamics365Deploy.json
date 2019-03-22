@@ -19,7 +19,6 @@
         },
         "SecurityAdmins": {
             "type": "string",
-            "defaultValue": "",
             "metadata": {
                 "description": "Administrators of the Web Site, separated by ','."
             }

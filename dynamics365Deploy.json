@@ -66,20 +66,6 @@
             "metadata": {
                 "description": "The application package URI to be deployed to the WebApp."
             }
-        },
-        "aad_ClientId": {
-            "type": "string",
-            "minLength": 1,
-            "metadata": {
-                "description": "the Application ID of the Azure AD Application Created for deployment"
-            }
-        },
-        "aad_ClientSecret": {
-            "type": "string",
-            "minLength": 1,
-            "metadata": {
-                "description": "the Application Secret(Password) of the Azure AD Application Created for deployment"
-            }
         }
     },
     "variables": {
@@ -235,8 +221,8 @@
                         "[concat('Microsoft.Web/Sites/', parameters('DeploymentName'), '/Extensions/MSDeploy')]"
                     ],
                     "properties": {
-                        "aad_ClientId": "[parameters('aad_ClientId')]",
-                        "aad_ClientSecret": "[parameters('aad_ClientSecret')]",
+                        "aad_ClientId": "",
+                        "aad_ClientSecret": "",
                         "aad_TenantId": "[subscription().tenantId]",
                         "aad_PostLogoutRedirectUri": "[concat('https://',parameters('DeploymentName'),'.azurewebsites.net/close.aspx?signedout=yes')]",
                         "aad_ExternalApiId": "[parameters('Dynamics365Uri')]",

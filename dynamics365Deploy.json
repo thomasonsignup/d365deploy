@@ -2,7 +2,7 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "Deploymentname": {
+        "DeploymentName": {
             "type": "string",
             "metadata": {
                 "description": "The name of the customer to deploy."
@@ -59,22 +59,16 @@
                 "description": "The application package URI to be deployed to the WebApp."
             }
         },
-        "aad_Clientid": {
+        "aad_ClientId": {
             "type": "string",
             "metadata": {
                 "description": "the Application ID of the Azure AD Application Created for deployment"
             }
         },
-        "aad_Clientsecret": {
+        "aad_ClientSecret": {
             "type": "string",
             "metadata": {
                 "description": "the Application Secret(Password) of the Azure AD Application Created for deployment"
-            }
-        },
-        "Deploymentname2": {
-            "type": "string",
-            "metadata": {
-                "description": "aidjawdjaw"
             }
         }
     },
@@ -231,7 +225,7 @@
                         "[concat('Microsoft.Web/Sites/', parameters('DeploymentName'), '/Extensions/MSDeploy')]"
                     ],
                     "properties": {
-                        "Deploymentname2": "[parameters('Deploymentname2')]",
+                        "DeploymentName": "[parameters('DeploymentName')]",
                         "aad_ClientId": "[parameters('aad_ClientId')]",
                         "aad_ClientSecret": "[parameters('aad_ClientSecret')]",
                         "aad_TenantId": "[subscription().tenantId]",

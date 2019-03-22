@@ -17,13 +17,6 @@
                 "description": "The type of SKU to use for the storage account."
             }
         },
-        "SecurityAdmins": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Administrators of the Web Site, separated by ','."
-            }
-        },
         "AppServicePlanName": {
             "type": "string",
             "metadata": {
@@ -233,12 +226,12 @@
                         "[concat('Microsoft.Web/Sites/', parameters('DeploymentName'), '/Extensions/MSDeploy')]"
                     ],
                     "properties": {
+                        "DeploymentName": "[parameters('DeploymentName')]",
                         "aad_ClientId": "[parameters('aad_ClientId')]",
                         "aad_ClientSecret": "[parameters('aad_ClientSecret')]",
                         "aad_TenantId": "[subscription().tenantId]",
                         "aad_PostLogoutRedirectUri": "[concat('https://',parameters('DeploymentName'),'.azurewebsites.net/close.aspx?signedout=yes')]",
-                        "aad_ExternalApiId": "[parameters('Dynamics365Uri')]",
-                        "security_Admins": "[parameters('SecurityAdmins')]"
+                        "aad_ExternalApiId": "[parameters('Dynamics365Uri')]"
                     }
                 },
                 {

@@ -70,6 +70,12 @@
             "metadata": {
                 "description": "the Application Secret(Password) of the Azure AD Application Created for deployment"
             }
+        },
+        "Deploymentname1": {
+            "type": "string",
+            "metadata": {
+                "description": "aidjawdjaw"
+            }
         }
     },
     "variables": {

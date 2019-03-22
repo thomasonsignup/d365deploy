@@ -16,7 +16,7 @@
                 "description": "The type of SKU to use for the storage account."
             }
         },
-        "blehebalah": {
+        "AppServicePlanName": {
             "type": "string",
             "metadata": {
                 "description": "The name of the App Service Plan to deploy or bind WebApp to. Leave empty for auto-generated unique name."
@@ -65,7 +65,7 @@
                 "description": "the Application ID of the Azure AD Application Created for deployment"
             }
         },
-        "aad_ClientSecret": {
+        "aad_Clientsecret": {
             "type": "string",
             "metadata": {
                 "description": "the Application Secret(Password) of the Azure AD Application Created for deployment"
@@ -83,7 +83,7 @@
         },
         "containerName": "artifacts",
         "dynamicsAxUri": "[concat('https://', subscription().subscriptionId,'.azurewebsites.net')]",
-        "AppServicePlanName": "[if(empty(parameters('blehebalah')), parameters('DeploymentName'), parameters('AppServicePlanName'))]",
+        "AppServicePlanName": "[if(empty(parameters('AppServicePlanName')), parameters('DeploymentName'), parameters('AppServicePlanName'))]",
         "AppServicePlanSKU": {
             "F1 Free": {
                 "name": "F1",

@@ -84,7 +84,7 @@
         },
         "containerName": "artifacts",
         "dynamicsAxUri": "[concat('https://', subscription().subscriptionId,'.azurewebsites.net')]",
-        "AppServicePlanName": "[if(empty(parameters('AppServicePlanName')), variables('uniqueString'), parameters('AppServicePlanName'))]",
+        "AppServicePlanName": "[if(empty(parameters('AppServicePlanName')), variables('DeploymentName'), parameters('AppServicePlanName'))]",
         "AppServicePlanSKU": {
             "F1 Free": {
                 "name": "F1",

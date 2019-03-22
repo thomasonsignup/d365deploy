@@ -19,13 +19,13 @@
         },
         "SecurityAdmins": {
             "type": "string",
+            "defaultValue": "",
             "metadata": {
                 "description": "Administrators of the Web Site, separated by ','."
             }
         },
         "AppServicePlanName": {
             "type": "string",
-            "defaultValue": "",
             "metadata": {
                 "description": "The name of the App Service Plan to deploy or bind WebApp to. Leave empty for auto-generated unique name."
             }

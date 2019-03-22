@@ -197,7 +197,7 @@
             }
         },
         {
-            "apiVersion": "2018-02-01",
+            "apiVersion": "2018-11-01",
             "name": "[parameters('CustomerName')]",
             "type": "Microsoft.Web/sites",
             "location": "[resourceGroup().location]",

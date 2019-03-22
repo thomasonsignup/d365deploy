@@ -231,7 +231,7 @@
                         "[concat('Microsoft.Web/Sites/', parameters('DeploymentName'), '/Extensions/MSDeploy')]"
                     ],
                     "properties": {
-                        "DeploymentName": "[parameters('DeploymentName')]",
+                        "Deploymentname2": "[parameters('Deploymentname2')]",
                         "aad_ClientId": "[parameters('aad_ClientId')]",
                         "aad_ClientSecret": "[parameters('aad_ClientSecret')]",
                         "aad_TenantId": "[subscription().tenantId]",

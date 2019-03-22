@@ -83,7 +83,7 @@
         }
     },
     "variables": {
-        "storageAccount": "[substring(parameters('CustomerName'), 0, 24)]",
+        "storageAccount": "[parameters('CustomerName')]",
         "uniqueString": "[parameters('CustomerName')]",
         "uniqueStringRsg": "[concat('d365', uniqueString(subscription().subscriptionId, resourceGroup().id))]",
         "sku": "Free",
@@ -198,7 +198,7 @@
         },
         {
             "apiVersion": "2018-02-01",
-            "name": "[variables('uniqueString')]",
+            "name": "[parameters('CustomerName')]",
             "type": "Microsoft.Web/sites",
             "location": "[resourceGroup().location]",
             "identity": {
@@ -207,7 +207,7 @@
             "tags": "[variables('tags')]",
             "dependsOn": ["[resourceId('Microsoft.Web/serverfarms/', variables('AppServicePlanName'))]"],
             "properties": {
-                "name": "[variables('uniqueString')]",
+                "name": "[parameters('CustomerName')]",
                 "serverFarmId": "[resourceId('Microsoft.Web/serverfarms/', variables('AppServicePlanName'))]"
             },
             "resources": [
@@ -231,14 +231,14 @@
                     "name": "appsettings",
                     "type": "config",
                     "dependsOn": [
-                        "[resourceId('Microsoft.Web/Sites', variables('uniqueString'))]",
-                        "[concat('Microsoft.Web/Sites/', variables('uniqueString'), '/Extensions/MSDeploy')]"
+                        "[resourceId('Microsoft.Web/Sites', parameters('CustomerName'))]",
+                        "[concat('Microsoft.Web/Sites/', parameters('CustomerName'), '/Extensions/MSDeploy')]"
                     ],
                     "properties": {
                         "aad_ClientId": "[parameters('aad_ClientId')]",
                         "aad_ClientSecret": "[parameters('aad_ClientSecret')]",
                         "aad_TenantId": "[subscription().tenantId]",
-                        "aad_PostLogoutRedirectUri": "[concat('https://',variables('uniqueString'),'.azurewebsites.net/close.aspx?signedout=yes')]",
+                        "aad_PostLogoutRedirectUri": "[concat('https://',parameters('CustomerName'),'.azurewebsites.net/close.aspx?signedout=yes')]",
                         "aad_ExternalApiId": "[parameters('Dynamics365Uri')]",
                         "security_Admins": "[parameters('SecurityAdmins')]"
                     }
@@ -248,8 +248,8 @@
                     "name": "connectionstrings",
                     "type": "config",
                     "dependsOn": [
-                        "[resourceId('Microsoft.Web/Sites', variables('uniqueString'))]",
-                        "[concat('Microsoft.Web/Sites/', variables('uniqueString'), '/Extensions/MSDeploy')]"
+                        "[resourceId('Microsoft.Web/Sites', parameters('CustomerName'))]",
+                        "[concat('Microsoft.Web/Sites/', parameters('CustomerName'), '/Extensions/MSDeploy')]"
                     ],
                     "properties": {
                         "StorageConnection": {

@@ -6,8 +6,7 @@
             "type": "string",
             "metadata": {
                 "description": "The name of the customer to deploy."
-            },
-            "minLength": 1
+            }
         },
         "StorageSKU": {
             "type": "string",

@@ -81,7 +81,7 @@
         }
     },
     "variables": {
-        "AnotherString": "[concat(parameters('testString'), uniqueString(resourceGroup().id)]",
+        "AnotherString": "[concat(parameters('testString'), uniqueString(resourceGroup().id))]",
         "randomstring": "[take(variables('AnotherString'),24)]",
         "storageAccount": "[parameters('DeploymentName')]",
         "uniqueString": "[parameters('DeploymentName')]",

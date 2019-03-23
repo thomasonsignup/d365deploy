@@ -1,6 +1,6 @@
 # Dynamics 365 WebApp
 
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fthomasonsignup%2Fd365deploy%2Fappfirst%2Fdynamics365Deploy.json" target="_blank">
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fthomasonsignup%2Fd365deploy%2Fmaster%2Fdynamics365Deploy.json" target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
 
@@ -8,7 +8,7 @@ This template creates a Dynamics365 Web Approval Application.
 
 # Dynamics 365 WebApp Update
 
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fthomasonsignup%2Fd365deploy%2Fappfirst%2Fdynamics365Update.json" target="_blank">
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fthomasonsignup%2Fd365deploy%2Fmaster%2Fdynamics365Update.json" target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
 

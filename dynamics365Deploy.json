@@ -20,6 +20,7 @@
         },
         "AppServicePlanName": {
             "type": "string",
+            "defaultValue": "",
             "metadata": {
                 "description": "The name of the App Service Plan to deploy or bind WebApp to. Leave empty for auto-generated unique name."
             }
@@ -40,14 +41,14 @@
                 "P3 Premium",
                 "P4 Premium"
             ],
-            "defaultValue": "D1 Shared",
+            "defaultValue": "B1 Basic",
             "metadata": {
                 "description": "The App Service Plan SKU."
             }
         },
         "Dynamics365Uri": {
             "type": "string",
-            "defaultValue": "https://d365o813u23tstba95b73bd53ec36eaos.cloudax.dynamics.com/",
+            "defaultValue": "",
             "minLength": 1,
             "metadata": {
                 "description": "The Dynamics 365 URI to be used."
@@ -55,28 +56,10 @@
         },
         "PackageUri": {
             "type": "string",
-            "defaultValue": "https://github.com/djpericsson/AzureWebAppDeploy/raw/master/alis.zip",
+            "defaultValue": "",
             "minLength": 1,
             "metadata": {
                 "description": "The application package URI to be deployed to the WebApp."
-            }
-        },
-        "aad_ClientId": {
-            "type": "string",
-            "metadata": {
-                "description": "the Application ID of the Azure AD Application Created for deployment"
-            }
-        },
-        "aad_ClientSecret": {
-            "type": "string",
-            "metadata": {
-                "description": "the Application Secret(Password) of the Azure AD Application Created for deployment"
-            }
-        },
-        "testString": {
-            "type": "string",
-            "metadata": {
-                "description": "abc"
             }
         }
     },
@@ -85,12 +68,6 @@
         "uniqueString": "[take(variables('randomstring'),24)]",
         "storageAccount": "[variables('uniqueString')]",
         "uniqueStringRsg": "[concat('d365', uniqueString(subscription().subscriptionId, resourceGroup().id))]",
-        "sku": "Free",
-        "tags": {
-            "Customer": "[variables('uniqueString')]",
-            "Solution": "[variables('uniqueString')]"
-        },
-        "containerName": "artifacts",
         "dynamicsAxUri": "[concat('https://', subscription().subscriptionId,'.azurewebsites.net')]",
         "AppServicePlanName": "[if(empty(parameters('AppServicePlanName')), variables('uniqueString'), parameters('AppServicePlanName'))]",
         "AppServicePlanSKU": {
@@ -142,8 +119,7 @@
                 "name": "P4",
                 "capacity": "4"
             }
-        },
-        "identityResourceId": "[concat(resourceId('Microsoft.Web/sites', variables('uniqueString')),'/providers/Microsoft.ManagedIdentity/Identities/default')]"
+        }
     },
     "resources": [
         {
@@ -151,7 +127,6 @@
             "type": "Microsoft.Storage/storageAccounts",
             "apiVersion": "2018-07-01",
             "location": "[resourcegroup().location]",
-            "tags": "[variables('tags')]",
             "kind": "StorageV2",
             "sku": {
                 "name": "[parameters('StorageSKU')]",
@@ -164,7 +139,7 @@
         {
             "name": "[concat(variables('storageAccount'), '/default')]",
             "type": "Microsoft.Storage/storageAccounts/blobServices",
-            "condition": "[not(empty(variables('dynamicsAxUri')))]",
+            "condition": "[not(empty(variables('uniqueString')))]",
             "apiVersion": "2018-07-01",
             "dependsOn": ["[variables('storageAccount')]"],
             "properties": {
@@ -186,7 +161,6 @@
             "name": "[variables('AppServicePlanName')]",
             "type": "Microsoft.Web/serverfarms",
             "location": "[resourceGroup().location]",
-            "tags": "[variables('tags')]",
             "sku": {
                 "name": "[variables('AppServicePlanSKU')[parameters('AppServicePlanSKU')].name]",
                 "capacity": "[variables('AppServicePlanSKU')[parameters('AppServicePlanSKU')].capacity]"
@@ -200,10 +174,6 @@
             "name": "[variables('uniqueString')]",
             "type": "Microsoft.Web/sites",
             "location": "[resourceGroup().location]",
-            "identity": {
-                "type": "SystemAssigned"
-            },
-            "tags": "[variables('tags')]",
             "dependsOn": ["[resourceId('Microsoft.Web/serverfarms/', variables('AppServicePlanName'))]"],
             "properties": {
                 "name": "[variables('uniqueString')]",
@@ -216,7 +186,6 @@
                     "location": "[resourceGroup().location]",
                     "apiVersion": "2018-02-01",
                     "dependsOn": ["[resourceId('Microsoft.Web/sites', variables('uniqueString'))]"],
-                    "tags": "[variables('tags')]",
                     "properties": {
                         "packageUri": "[parameters('PackageUri')]",
                         "dbType": "None",
@@ -234,13 +203,11 @@
                         "[concat('Microsoft.Web/Sites/', variables('uniqueString'), '/Extensions/MSDeploy')]"
                     ],
                     "properties": {
-                        "DeploymentName": "[variables('uniqueString')]",
-                        "aad_ClientId": "[parameters('aad_ClientId')]",
-                        "aad_ClientSecret": "[parameters('aad_ClientSecret')]",
+                        "aad_ClientId": "",
+                        "aad_ClientSecret": "",
                         "aad_TenantId": "[subscription().tenantId]",
                         "aad_PostLogoutRedirectUri": "[concat('https://',variables('uniqueString'),'.azurewebsites.net/close.aspx?signedout=yes')]",
-                        "aad_ExternalApiId": "[parameters('Dynamics365Uri')]",
-                        "test_String": "[variables('randomstring')]"
+                        "aad_ExternalApiId": "[parameters('Dynamics365Uri')]"
                     }
                 },
                 {

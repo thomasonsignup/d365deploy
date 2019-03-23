@@ -21,8 +21,7 @@
     },
     "variables": {
         "randomstring": "[concat(parameters('DeploymentName'), uniqueString(resourceGroup().id))]",
-        "uniqueString": "[take(variables('randomstring'),24)]",
-        "identityResourceId": "[concat(resourceId('Microsoft.Web/sites', variables('uniqueString')),'/providers/Microsoft.ManagedIdentity/Identities/default')]"
+        "uniqueString": "[take(variables('randomstring'),24)]"
     },
     "resources": [
         {
@@ -30,7 +29,9 @@
             "name": "[variables('uniqueString')]",
             "type": "Microsoft.Web/sites",
             "location": "[resourceGroup().location]",
-            "tags": "[variables('tags')]",
+            "properties": {
+                "name": "[variables('uniqueString')]"
+            },
             "resources": [
                 {
                     "name": "MSDeploy",
@@ -40,9 +41,7 @@
                     "properties": {
                         "packageUri": "[parameters('PackageUri')]",
                         "dbType": "None",
-                        "connectionString": "",
-                        "setParameters": {
-                        }
+                        "connectionString": ""
                     }
                 }
             ]

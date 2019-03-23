@@ -81,19 +81,18 @@
         }
     },
     "variables": {
-        "AnotherString": "[concat(parameters('testString'), uniqueString(resourceGroup().id))]",
-        "randomstring": "[take(variables('AnotherString'),24)]",
-        "storageAccount": "[parameters('DeploymentName')]",
-        "uniqueString": "[parameters('DeploymentName')]",
+        "randomstring": "[concat(variables('uniqueString'), uniqueString(resourceGroup().id))]",
+        "uniqueString": "[take(variables('randomstring'),24)]",
+        "storageAccount": "[variables('uniqueString')]",
         "uniqueStringRsg": "[concat('d365', uniqueString(subscription().subscriptionId, resourceGroup().id))]",
         "sku": "Free",
         "tags": {
-            "Customer": "[parameters('DeploymentName')]",
+            "Customer": "[variables('uniqueString')]",
             "Solution": "[variables('uniqueString')]"
         },
         "containerName": "artifacts",
         "dynamicsAxUri": "[concat('https://', subscription().subscriptionId,'.azurewebsites.net')]",
-        "AppServicePlanName": "[if(empty(parameters('AppServicePlanName')), parameters('DeploymentName'), parameters('AppServicePlanName'))]",
+        "AppServicePlanName": "[if(empty(parameters('AppServicePlanName')), variables('uniqueString'), parameters('AppServicePlanName'))]",
         "AppServicePlanSKU": {
             "F1 Free": {
                 "name": "F1",
@@ -198,7 +197,7 @@
         },
         {
             "apiVersion": "2018-11-01",
-            "name": "[parameters('DeploymentName')]",
+            "name": "[variables('uniqueString')]",
             "type": "Microsoft.Web/sites",
             "location": "[resourceGroup().location]",
             "identity": {
@@ -207,7 +206,7 @@
             "tags": "[variables('tags')]",
             "dependsOn": ["[resourceId('Microsoft.Web/serverfarms/', variables('AppServicePlanName'))]"],
             "properties": {
-                "name": "[parameters('DeploymentName')]",
+                "name": "[variables('uniqueString')]",
                 "serverFarmId": "[resourceId('Microsoft.Web/serverfarms/', variables('AppServicePlanName'))]"
             },
             "resources": [
@@ -231,15 +230,15 @@
                     "name": "appsettings",
                     "type": "config",
                     "dependsOn": [
-                        "[resourceId('Microsoft.Web/Sites', parameters('DeploymentName'))]",
-                        "[concat('Microsoft.Web/Sites/', parameters('DeploymentName'), '/Extensions/MSDeploy')]"
+                        "[resourceId('Microsoft.Web/Sites', variables('uniqueString'))]",
+                        "[concat('Microsoft.Web/Sites/', variables('uniqueString'), '/Extensions/MSDeploy')]"
                     ],
                     "properties": {
-                        "DeploymentName": "[parameters('DeploymentName')]",
+                        "DeploymentName": "[variables('uniqueString')]",
                         "aad_ClientId": "[parameters('aad_ClientId')]",
                         "aad_ClientSecret": "[parameters('aad_ClientSecret')]",
                         "aad_TenantId": "[subscription().tenantId]",
-                        "aad_PostLogoutRedirectUri": "[concat('https://',parameters('DeploymentName'),'.azurewebsites.net/close.aspx?signedout=yes')]",
+                        "aad_PostLogoutRedirectUri": "[concat('https://',variables('uniqueString'),'.azurewebsites.net/close.aspx?signedout=yes')]",
                         "aad_ExternalApiId": "[parameters('Dynamics365Uri')]",
                         "test_String": "[variables('randomstring')]"
                     }
@@ -249,8 +248,8 @@
                     "name": "connectionstrings",
                     "type": "config",
                     "dependsOn": [
-                        "[resourceId('Microsoft.Web/Sites', parameters('DeploymentName'))]",
-                        "[concat('Microsoft.Web/Sites/', parameters('DeploymentName'), '/Extensions/MSDeploy')]"
+                        "[resourceId('Microsoft.Web/Sites', variables('uniqueString'))]",
+                        "[concat('Microsoft.Web/Sites/', variables('uniqueString'), '/Extensions/MSDeploy')]"
                     ],
                     "properties": {
                         "StorageConnection": {

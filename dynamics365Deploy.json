@@ -81,7 +81,8 @@
         }
     },
     "variables": {
-        "randomstring": "[length(parameters('testString'))]",
+        "AnotherString": "[concat(parameters('testString'), uniqueString(resourceGroup().id)]",
+        "randomstring": "[take(variables('AnotherString'),24)]",
         "storageAccount": "[parameters('DeploymentName')]",
         "uniqueString": "[parameters('DeploymentName')]",
         "uniqueStringRsg": "[concat('d365', uniqueString(subscription().subscriptionId, resourceGroup().id))]",

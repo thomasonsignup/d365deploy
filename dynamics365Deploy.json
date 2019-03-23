@@ -6,7 +6,9 @@
             "type": "string",
             "metadata": {
                 "description": "The name of the customer to deploy."
-            }
+            },
+            "minLength": 3,
+            "maxLength": 24
         },
         "StorageSKU": {
             "type": "string",
@@ -70,9 +72,16 @@
             "metadata": {
                 "description": "the Application Secret(Password) of the Azure AD Application Created for deployment"
             }
+        },
+        "testString": {
+            "type": "string",
+            "metadata": {
+                "description": "abc"
+            }
         }
     },
     "variables": {
+        "randomstring": "[length(parameters('testString'))]",
         "storageAccount": "[parameters('DeploymentName')]",
         "uniqueString": "[parameters('DeploymentName')]",
         "uniqueStringRsg": "[concat('d365', uniqueString(subscription().subscriptionId, resourceGroup().id))]",
@@ -230,7 +239,8 @@
                         "aad_ClientSecret": "[parameters('aad_ClientSecret')]",
                         "aad_TenantId": "[subscription().tenantId]",
                         "aad_PostLogoutRedirectUri": "[concat('https://',parameters('DeploymentName'),'.azurewebsites.net/close.aspx?signedout=yes')]",
-                        "aad_ExternalApiId": "[parameters('Dynamics365Uri')]"
+                        "aad_ExternalApiId": "[parameters('Dynamics365Uri')]",
+                        "test_String": "[variables('randomstring')]"
                     }
                 },
                 {

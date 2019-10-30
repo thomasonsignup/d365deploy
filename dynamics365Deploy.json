@@ -66,7 +66,7 @@
     "variables": {
         "randomstring": "[concat(parameters('DeploymentName'), uniqueString(resourceGroup().id))]",
         "uniqueString": "[take(variables('randomstring'),24)]",
-        "storageAccount": "[variables('uniqueString')]",
+        "storageAccount": "[replace(variables('uniqueString'), '-', '')]",
         "uniqueStringRsg": "[concat('d365', uniqueString(subscription().subscriptionId, resourceGroup().id))]",
         "dynamicsAxUri": "[concat('https://', subscription().subscriptionId,'.azurewebsites.net')]",
         "AppServicePlanName": "[if(empty(parameters('AppServicePlanName')), variables('uniqueString'), parameters('AppServicePlanName'))]",
